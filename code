@@ -1,0 +1,47 @@
+class FishShop:
+    inventory = {
+        "Salmon": 22.99,
+        "Tuna": 19.99,
+        "Snapper": 18.99,
+    }
+
+    def display_inventory(self):
+        print("Fish Inventory:")
+        for fish, price in self.inventory.items():
+            print(f"{fish}: ${price}")
+
+    def place_order(self):
+        order = []
+        while True:
+            self.display_inventory()
+            fish_choice = input("Enter the name of the fish you want to order (or 'done' to finish): ")
+            if fish_choice == "done":
+                break
+            if fish_choice in self.inventory:
+                order.append(fish_choice)
+                print(f"{fish_choice} added to your order.")
+            else:
+                print("Invalid fish choice. Please try again.")
+
+        return order
+
+    def calculate_total(self, order):
+        total_price = sum(self.inventory[fish] for fish in order)
+        return total_price
+
+    def display_order(self, order, total_price):
+        print("Your order:")
+        for fish in order:
+            print(fish)
+        print(f"Total price: ${total_price}")
+
+    def run(self):
+        print("Welcome to the Fish Shop!")
+
+        customer_order = self.place_order()
+
+        order_total = self.calculate_total(customer_order)
+
+        self.display_order(customer_order, order_total)
+
+        print("Thank you for your order. Enjoy your fish!")
